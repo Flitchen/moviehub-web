@@ -14,6 +14,7 @@ import Settings from "./pages/Settings";
 import Layout from "./components/layout/Layout";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Loader from "./components/common/Loader";
+import NotFound from "./pages/NotFound";
 
 const AppRouter = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -93,20 +94,7 @@ const AppRouter = () => {
       )}
 
       {/* 404 Route */}
-      <Route
-        path="*"
-        element={
-          <div className="min-h-screen flex items-center justify-center bg-dark-950 text-dark-50">
-            <div className="text-center">
-              <h1 className="text-6xl font-bold text-primary-500 mb-4">404</h1>
-              <p className="text-xl mb-8">Page not found</p>
-              <a href="/" className="btn-primary">
-                Go Home
-              </a>
-            </div>
-          </div>
-        }
-      />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
