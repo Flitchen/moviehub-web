@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useAuth, UserButton } from "@clerk/clerk-react";
+import { useAuth, UserButton, useUser } from "@clerk/clerk-react";
 import { motion } from "framer-motion";
 import {
   FiHome,
@@ -11,10 +11,14 @@ import {
 } from "react-icons/fi";
 import { useState } from "react";
 import { cn } from "../../utils/cn";
+import ConfirmModal from "../common/ConfirmModal";
 
 const Header = () => {
   const location = useLocation();
-  const { user } = useAuth();
+  const { user } = useUser();
+  const { signOut } = useAuth(); // add signOut
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
@@ -91,6 +95,14 @@ const Header = () => {
                 }}
               />
 
+              {/* Desktop Logout */}
+              <button
+                onClick={() => setShowLogoutConfirm(true)}
+                className="hidden md:block text-sm text-red-400 hover:text-red-500 transition-colors"
+              >
+                Logout
+              </button>
+
               {/* Mobile menu button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -137,8 +149,28 @@ const Header = () => {
               </Link>
             );
           })}
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setShowLogoutConfirm(true);
+            }}
+            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-sm font-medium text-red-400 hover:text-red-500 hover:bg-red-500/10 w-full text-left"
+          >
+            <FiX className="w-5 h-5" />
+            <span>Logout</span>
+          </button>
         </div>
       </motion.div>
+      <ConfirmModal
+        open={showLogoutConfirm}
+        title="Logout?"
+        message="Are you sure you want to log out?"
+        onConfirm={async () => {
+          await signOut();
+          setShowLogoutConfirm(false);
+        }}
+        onCancel={() => setShowLogoutConfirm(false)}
+      />
     </>
   );
 };

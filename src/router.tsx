@@ -1,73 +1,76 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useAuth } from '@clerk/clerk-react'
-import { SignIn, SignUp } from '@clerk/clerk-react'
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react";
+import { SignIn, SignUp } from "@clerk/clerk-react";
 
 // Pages
-import LandingPage from './pages/LandingPage'
-import Dashboard from './pages/Dashboard'
-import Movies from './pages/Movies'
-import MovieDetails from './pages/MovieDetails'
-import Watchlist from './pages/Watchlist'
-import Settings from './pages/Settings'
+import LandingPage from "./pages/LandingPage";
+import Dashboard from "./pages/Dashboard";
+import Movies from "./pages/Movies";
+import MovieDetails from "./pages/MovieDetails";
+import Watchlist from "./pages/Watchlist";
+import Settings from "./pages/Settings";
 
 // Components
-import Layout from './components/layout/Layout'
-import ProtectedRoute from './components/common/ProtectedRoute'
+import Layout from "./components/layout/Layout";
+import ProtectedRoute from "./components/common/ProtectedRoute";
+import Loader from "./components/common/Loader";
 
 const AppRouter = () => {
-  const { isSignedIn, isLoaded } = useAuth()
+  const { isSignedIn, isLoaded } = useAuth();
 
   if (!isLoaded) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-dark-950">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500"></div>
-      </div>
-    )
+    return <Loader />;
   }
 
   return (
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<LandingPage />} />
-      <Route 
-        path="/sign-in/*" 
+      <Route
+        path="/sign-in/*"
         element={
           <div className="min-h-screen flex items-center justify-center bg-dark-950">
-            <SignIn 
-              routing="path" 
-              path="/sign-in" 
+            <SignIn
+              routing="path"
+              path="/sign-in"
               redirectUrl="/dashboard"
               appearance={{
                 elements: {
-                  formButtonPrimary: 'btn-primary',
-                  card: 'glass-morphism',
-                }
+                  formButtonPrimary: "btn-primary",
+                  card: "glass-morphism",
+                },
               }}
             />
           </div>
-        } 
+        }
       />
-      <Route 
-        path="/sign-up/*" 
+      <Route
+        path="/sign-up/*"
         element={
           <div className="min-h-screen flex items-center justify-center bg-dark-950">
-            <SignUp 
-              routing="path" 
-              path="/sign-up" 
+            <SignUp
+              routing="path"
+              path="/sign-up"
               redirectUrl="/dashboard"
               appearance={{
                 elements: {
-                  formButtonPrimary: 'btn-primary',
-                  card: 'glass-morphism',
-                }
+                  formButtonPrimary: "btn-primary",
+                  card: "glass-morphism",
+                },
               }}
             />
           </div>
-        } 
+        }
       />
 
       {/* Protected Routes */}
-      <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:id" element={<MovieDetails />} />
@@ -78,23 +81,34 @@ const AppRouter = () => {
       {/* Redirect authenticated users from auth pages */}
       {isSignedIn && (
         <>
-          <Route path="/sign-in/*" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/sign-up/*" element={<Navigate to="/dashboard" replace />} />
+          <Route
+            path="/sign-in/*"
+            element={<Navigate to="/dashboard" replace />}
+          />
+          <Route
+            path="/sign-up/*"
+            element={<Navigate to="/dashboard" replace />}
+          />
         </>
       )}
 
       {/* 404 Route */}
-      <Route path="*" element={
-        <div className="min-h-screen flex items-center justify-center bg-dark-950 text-dark-50">
-          <div className="text-center">
-            <h1 className="text-6xl font-bold text-primary-500 mb-4">404</h1>
-            <p className="text-xl mb-8">Page not found</p>
-            <a href="/" className="btn-primary">Go Home</a>
+      <Route
+        path="*"
+        element={
+          <div className="min-h-screen flex items-center justify-center bg-dark-950 text-dark-50">
+            <div className="text-center">
+              <h1 className="text-6xl font-bold text-primary-500 mb-4">404</h1>
+              <p className="text-xl mb-8">Page not found</p>
+              <a href="/" className="btn-primary">
+                Go Home
+              </a>
+            </div>
           </div>
-        </div>
-      } />
+        }
+      />
     </Routes>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;

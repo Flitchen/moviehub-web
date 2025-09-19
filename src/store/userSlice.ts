@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface UserPreferences {
+  theme: "dark" | "light";
   preferredGenres: string[];
   language: string;
   notifications: boolean;
@@ -23,6 +23,7 @@ interface UserState {
 
 const initialState: UserState = {
   preferences: {
+    theme: "dark",
     preferredGenres: [],
     language: "en",
     notifications: true,

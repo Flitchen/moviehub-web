@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface Movie {
   id: number;

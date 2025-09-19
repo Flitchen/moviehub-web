@@ -1,69 +1,148 @@
-# React + TypeScript + Vite
+# Movie Website Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern movie browsing application built with React, TypeScript, and Vite. This application allows users to discover movies, view detailed information, manage a personal watchlist, and customize their experience through various settings.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dashboard:**
+  - User-specific data: Number of movies in watchlist.
+  - Personalized recommendations based on watchlist.
+  - Basic visualizations: Charts for movie genres and release trends.
+  - Table of the latest 5 movies (sortable by release date, popularity).
+  - "View More" button to browse all recent movies.
+- **Movies Page:**
+  - Browse and discover movies.
+  - Search functionality by movie title.
+  - Filter movies by genre, release year, and rating.
+  - Pagination for navigating through movie results.
+  - Add movies to watchlist directly from movie cards.
+- **Movie Details Page:**
+  - Comprehensive movie information: backdrop, poster, title, overview, genres, release date, rating, runtime.
+  - Cast and crew details.
+  - Similar movie recommendations.
+  - Add/Remove movie from watchlist.
+- **Watchlist Page:**
+  - View all movies added to the personal watchlist.
+  - Remove movies from the watchlist.
+- **Settings Page:**
+  - Customize application theme (dark/light mode).
+  - Manage notification preferences.
+  - Option to clear the entire watchlist.
+  - Display user statistics (movies browsed, ratings given, join date).
+- **Toast Notifications:**
+  - Provides user feedback for actions like adding/removing movies from the watchlist.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend:**
+  - React (with TypeScript)
+  - Vite
+  - React Router DOM
+  - Redux Toolkit (for state management)
+  - Tailwind CSS (for styling)
+  - Recharts (for data visualization)
+  - React Hot Toast (for notifications)
+  - React Icons (for icons)
+- **API:**
+  - The Movie Database (TMDB) API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Prerequisites
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v22 or higher)
+- npm or Yarn
+
+### Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/Flitchen/moviehub-web
+    cd moviehub-web
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+### Environment Variables
+
+Create a `.env` file in the root directory of the project and add the following:
+
+```
+VITE_TMDB_API_KEY=your_tmdb_api_key_here
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `VITE_TMDB_API_KEY`: Get your API key from [TMDB](https://www.themoviedb.org/documentation/api).
+- `VITE_CLERK_PUBLISHABLE_KEY`: Get your publishable key from [Clerk](https://clerk.com/).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Running the Application
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
+# or
+yarn dev
 ```
+
+Open your browser and navigate to `http://localhost:5173` (or the port displayed in your terminal).
+
+## Project Structure
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── common/
+│   │   │   └── MovieCard.tsx
+│   │   └── dashboard/
+│   │       ├── GenresChart.tsx
+│   │       ├── MoviesTable.tsx
+│   │       ├── Recommendations.tsx
+│   │       ├── ReleaseTrendChart.tsx
+│   │       └── SummaryCard.tsx
+│   ├── pages/
+│   │   ├── Dashboard.tsx
+│   │   ├── LandingPage.tsx
+│   │   ├── MovieDetails.tsx
+│   │   ├── Movies.tsx
+│   │   ├── Settings.tsx
+│   │   └── Watchlist.tsx
+│   ├── services/
+│   │   └── api/
+│   │       ├── client.ts
+│   │       └── movies.ts
+│   ├── store/
+│   │   ├── index.ts
+│   │   ├── movieSlice.ts
+│   │   ├── store.ts
+│   │   ├── userSlice.ts
+│   │   └── watchlistSlice.ts
+│   ├── types/
+│   │   └── Movie.ts
+│   ├── utils/
+│   ├── App.tsx
+│   ├── index.css
+│   ├── main.tsx
+│   ├── router.tsx
+│   └── vite-env.d.ts
+├── .env
+├── .gitignore
+├── index.html
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+## License
+
+[MIT License](LICENSE) - _You might need to create a LICENSE file if it doesn't exist._

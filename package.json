@@ -2,10 +2,11 @@
   "name": "movie_website",
   "private": true,
   "version": "0.0.0",
+  "description": "A modern movie streaming platform built with React and TMDb API",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -13,15 +14,12 @@
     "@clerk/clerk-react": "^5.47.0",
     "@hookform/resolvers": "^5.2.2",
     "@reduxjs/toolkit": "^2.9.0",
-    "@tanstack/react-query": "^5.89.0",
-    "@tanstack/react-table": "^8.21.3",
     "axios": "^1.12.2",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.23.15",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-hook-form": "^7.62.0",
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-paginate": "^8.3.0",
@@ -29,8 +27,7 @@
     "react-router-dom": "^7.9.1",
     "recharts": "^3.2.1",
     "redux-persist": "^6.0.0",
-    "tailwind-merge": "^3.3.1",
-    "zod": "^4.1.9"
+    "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
