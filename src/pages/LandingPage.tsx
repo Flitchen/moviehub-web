@@ -265,21 +265,21 @@ const LandingPage = () => {
               {/* Navigation Buttons */}
               <button
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 glass-morphism rounded-full hover:bg-white/20 transition-all"
+                className="absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 glass-morphism rounded-full hover:bg-white/20 transition-all"
               >
-                <FiChevronLeft className="w-6 h-6 text-white" />
+                <FiChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </button>
               <button
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 glass-morphism rounded-full hover:bg-white/20 transition-all"
+                className="absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 glass-morphism rounded-full hover:bg-white/20 transition-all"
               >
-                <FiChevronRight className="w-6 h-6 text-white" />
+                <FiChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </button>
 
               {/* Movies Carousel */}
-              <div className="overflow-hidden mx-12">
+              <div className="hide-scrollbar overflow-x-auto scrollbar-hide px-4 sm:px-12">
                 <motion.div
-                  className="flex transition-transform duration-500 ease-in-out"
+                  className="flex gap-3 sm:gap-6 transition-transform duration-500 ease-in-out"
                   style={{ transform: `translateX(-${currentSlide * 25}%)` }}
                 >
                   {trendingMovies.map((movie, index) => (
@@ -287,9 +287,9 @@ const LandingPage = () => {
                       key={movie.id}
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1, duration: 0.5 }}
+                      transition={{ delay: index * 0.05, duration: 0.5 }}
                       viewport={{ once: true }}
-                      className="w-1/4 flex-shrink-0 px-3"
+                      className="flex-shrink-0 w-[45%] sm:w-1/4 md:w-1/5"
                     >
                       <Link to={`/movies/${movie.id}`}>
                         <div className="group card-hover bg-dark-900 rounded-xl overflow-hidden">
@@ -301,21 +301,21 @@ const LandingPage = () => {
                             />
                             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                               <div className="text-center">
-                                <FiPlay className="w-12 h-12 text-primary-400 mx-auto mb-2" />
-                                <p className="text-white font-semibold">
+                                <FiPlay className="w-10 h-10 sm:w-12 sm:h-12 text-primary-400 mx-auto mb-2" />
+                                <p className="text-white font-semibold text-sm sm:text-base">
                                   View Details
                                 </p>
                               </div>
                             </div>
                           </div>
-                          <div className="p-4">
-                            <h3 className="font-semibold text-white mb-2 truncate">
+                          <div className="p-2 sm:p-4">
+                            <h3 className="font-semibold text-white mb-1 sm:mb-2 truncate text-sm sm:text-base">
                               {movie.title}
                             </h3>
-                            <div className="flex items-center justify-between text-sm text-dark-300">
+                            <div className="flex items-center justify-between text-xs sm:text-sm text-dark-300">
                               <span>{formatYear(movie.release_date)}</span>
                               <div className="flex items-center space-x-1">
-                                <FiStar className="w-4 h-4 text-yellow-400" />
+                                <FiStar className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
                                 <span>{formatRating(movie.vote_average)}</span>
                               </div>
                             </div>

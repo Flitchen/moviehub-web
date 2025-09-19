@@ -27,6 +27,10 @@
   --color-dark-950: #020617;
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   * {
     box-sizing: border-box;

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { moviesApi } from '../../services/api/movies';
-import { useDispatch } from 'react-redux';
-import { addToWatchlist } from '../../store/watchlistSlice';
-import toast from 'react-hot-toast';
+import React from "react";
+import { Link } from "react-router-dom";
+import { moviesApi } from "../../services/api/movies";
+import { useDispatch } from "react-redux";
+import { addToWatchlist } from "../../store/watchlistSlice";
+import toast from "react-hot-toast";
 
 interface Movie {
   id: number;
@@ -35,9 +35,10 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies }) => {
   };
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg">
+    <div className="bg-gray-800 p-4 rounded-lg overflow-x-auto">
       <h2 className="text-xl font-bold mb-4">Latest Movies</h2>
-      <table className="w-full">
+      <table className="w-full min-w-[600px]">
+        {/* ensure table doesn't shrink too much */}
         <thead>
           <tr className="text-left text-gray-400">
             <th className="p-2">Poster</th>
@@ -52,7 +53,7 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies }) => {
             <tr key={movie.id} className="border-b border-gray-700">
               <td className="p-2">
                 <img
-                  src={moviesApi.getImageUrl(movie.poster_path, 'w92')}
+                  src={moviesApi.getImageUrl(movie.poster_path, "w92")}
                   alt={movie.title}
                   className="w-12 h-auto rounded-md"
                 />
@@ -61,9 +62,9 @@ const MoviesTable: React.FC<MoviesTableProps> = ({ movies }) => {
               <td className="p-2">{movie.release_date}</td>
               <td className="p-2">{movie.vote_average.toFixed(1)}</td>
               <td className="p-2">
-                <button 
+                <button
                   onClick={() => handleAddToWatchlist(movie)}
-                  className="bg-primary-500 text-white p-2 rounded-md"
+                  className="bg-primary-500 text-white px-3 py-1 rounded-md whitespace-nowrap"
                 >
                   Add to Watchlist
                 </button>
